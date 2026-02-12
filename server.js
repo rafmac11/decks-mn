@@ -26,8 +26,12 @@ app.use(
         fontSrc: ["'self'", "https://fonts.gstatic.com"],
         scriptSrc: ["'self'", "'unsafe-inline'"],
         imgSrc: ["'self'", "data:"],
+        frameAncestors: ["*"],
       },
     },
+    frameguard: false,
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: false,
   })
 );
 app.use(cors({ origin: ALLOWED_ORIGINS }));
@@ -68,9 +72,21 @@ app.post("/api/submit", submitLimiter, async (req, res) => {
     }
 
     // Build CRM webhook payload (matches your Supabase inbound-lead-webhook format)
+    const cstTimestamp = new Date().toLocaleString("en-US", {
+      timeZone: "America/Chicago",
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
+      hour12: false,
+    });
+
     const webhookPayload = {
       form_id: FORM_ID,
       source: "custom_form",
+      submitted_at: cstTimestamp + " CST",
       lead: {
         name: fullName.trim(),
         email: email.trim().toLowerCase(),
