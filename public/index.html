@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -44,85 +45,106 @@
       -webkit-font-smoothing: antialiased;
     }
 
+    /* ── Card ── */
     .form-card {
       background: var(--white);
       border-radius: 18px;
       box-shadow: var(--shadow-card);
       width: 100%;
-      max-width: 600px;
-      padding: 44px 40px 36px;
+      max-width: 560px;
       position: relative;
       overflow: hidden;
     }
-    .form-card::before {
-      content: '';
+
+    /* ── Progress bar ── */
+    .progress-track {
       position: absolute;
       top: 0; left: 0; right: 0;
       height: 3px;
-      background: linear-gradient(90deg, var(--green-dark), var(--green-accent), var(--green-dark));
+      background: #E8E5E0;
+      z-index: 1;
     }
-
-    .progress-bar {
-      position: absolute;
-      top: 0; left: 0;
-      height: 3px;
-      background: var(--green-accent);
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--green-dark), var(--green-accent));
       transition: width 500ms cubic-bezier(0.4, 0, 0.2, 1);
-      z-index: 2;
+      width: 33.3%;
     }
 
+    /* ── Header ── */
+    .form-header {
+      padding: 36px 36px 0;
+    }
     .form-title {
       font-family: 'Playfair Display', Georgia, serif;
       font-weight: 600;
-      font-size: 28px;
+      font-size: 26px;
       color: var(--text-primary);
-      margin-bottom: 6px;
-      letter-spacing: -0.3px;
+      margin-bottom: 4px;
     }
     .form-subtitle {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text-secondary);
-      margin-bottom: 30px;
+      margin-bottom: 0;
     }
 
-    /* ── Steps ── */
-    .step {
-      transition: opacity 400ms ease, max-height 500ms cubic-bezier(0.4, 0, 0.2, 1), margin 400ms ease, padding 400ms ease;
+    /* ── Step dots ── */
+    .step-dots {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      padding: 20px 0 8px;
+    }
+    .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: all 300ms ease;
+    }
+    .dot.active {
+      background: var(--green-dark);
+      width: 24px;
+      border-radius: 4px;
+    }
+    .dot.done { background: var(--green-accent); }
+
+    /* ── Slider ── */
+    .slider-viewport {
       overflow: hidden;
+      position: relative;
     }
-    .step.hidden {
-      opacity: 0;
-      max-height: 0;
-      margin: 0;
-      padding: 0;
-      pointer-events: none;
+    .slider-track {
+      display: flex;
+      transition: transform 450ms cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
     }
-    .step.visible {
-      opacity: 1;
-      max-height: 2000px;
-      pointer-events: auto;
+    .slide {
+      min-width: 100%;
+      padding: 20px 36px 32px;
     }
 
+    /* ── Step label ── */
     .step-label {
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--text-secondary);
       text-transform: uppercase;
-      letter-spacing: 0.06em;
+      letter-spacing: 0.07em;
       margin-bottom: 14px;
       display: flex;
       align-items: center;
       gap: 8px;
     }
     .step-label .step-num {
-      width: 22px; height: 22px;
+      width: 20px; height: 20px;
       background: var(--green-dark);
       color: #fff;
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 700;
     }
 
@@ -130,22 +152,21 @@
     .service-grid {
       display: grid;
       grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 4px;
+      gap: 8px;
     }
     .service-card {
       position: relative;
       background: var(--white);
       border: 1.5px solid var(--border);
       border-radius: var(--radius-sm);
-      padding: 16px 8px 14px;
+      padding: 14px 6px 12px;
       text-align: center;
       cursor: pointer;
       transition: all var(--transition);
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 8px;
+      gap: 6px;
       user-select: none;
     }
     .service-card:hover {
@@ -161,24 +182,23 @@
     .service-card input { position: absolute; opacity: 0; pointer-events: none; }
 
     .svc-icon {
-      width: 34px; height: 34px;
+      width: 28px; height: 28px;
       color: var(--icon-color);
       transition: color var(--transition);
-      flex-shrink: 0;
     }
     .service-card:hover .svc-icon { color: var(--green-accent); }
 
     .service-name {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 500;
       color: var(--text-primary);
-      line-height: 1.3;
+      line-height: 1.25;
     }
 
     .svc-check {
       position: absolute;
-      top: 6px; right: 6px;
-      width: 18px; height: 18px;
+      top: 5px; right: 5px;
+      width: 16px; height: 16px;
       background: var(--green-dark);
       color: #fff;
       border-radius: 50%;
@@ -188,29 +208,16 @@
     }
     .service-card.selected .svc-check { display: flex; }
 
-    .step-divider {
-      border: none;
-      border-top: 1px solid #EBE8E3;
-      margin: 26px 0;
-    }
-
-    /* ── Inline Row ── */
-    .inline-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin-bottom: 4px;
-    }
-
     /* ── Inputs ── */
-    .field-group { margin-bottom: 20px; }
+    .field-group { margin-bottom: 18px; }
+    .field-group:last-child { margin-bottom: 0; }
 
-    label {
+    label.field-label {
       display: block;
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 500;
       color: var(--text-primary);
-      margin-bottom: 7px;
+      margin-bottom: 6px;
     }
     label .req { color: var(--text-secondary); font-weight: 400; }
 
@@ -221,24 +228,23 @@
     }
     .input-icon {
       position: absolute;
-      left: 14px;
-      width: 18px; height: 18px;
+      left: 13px;
+      width: 17px; height: 17px;
       color: var(--icon-color);
       pointer-events: none;
       transition: color var(--transition);
     }
-    input, select, textarea {
+    input, textarea {
       width: 100%;
-      padding: 13px 16px 13px 44px;
+      padding: 12px 14px 12px 40px;
       font-family: inherit;
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text-primary);
       background: var(--white);
       border: 1.5px solid var(--border);
       border-radius: var(--radius);
       outline: none;
       transition: border-color var(--transition), box-shadow var(--transition);
-      appearance: none;
     }
     input::placeholder, textarea::placeholder { color: var(--text-placeholder); }
     input:focus, textarea:focus {
@@ -247,24 +253,38 @@
     }
     input:focus ~ .input-icon, textarea:focus ~ .input-icon { color: var(--green-dark); }
 
-    .input-wrap.has-error input { border-color: var(--error); box-shadow: 0 0 0 3px rgba(196,62,62,0.08); }
-    .field-error { font-size: 12.5px; color: var(--error); margin-top: 5px; display: none; }
+    .input-wrap.has-error input,
+    .input-wrap.has-error textarea { border-color: var(--error); box-shadow: 0 0 0 3px rgba(196,62,62,0.08); }
+    .field-error { font-size: 12px; color: var(--error); margin-top: 4px; display: none; }
     .field-error.visible { display: block; }
 
     textarea {
-      min-height: 110px;
+      min-height: 90px;
       resize: vertical;
-      line-height: 1.55;
-      padding-top: 14px;
+      line-height: 1.5;
+      padding-top: 12px;
+    }
+
+    .field-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    /* ── Inline zip + financing ── */
+    .detail-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
     }
 
     /* ── Financing ── */
-    .financing-options { display: flex; gap: 10px; }
+    .financing-options { display: flex; gap: 8px; }
     .fin-btn {
       flex: 1;
-      padding: 13px 12px;
+      padding: 12px 10px;
       font-family: inherit;
-      font-size: 14.5px;
+      font-size: 13.5px;
       font-weight: 500;
       color: var(--text-primary);
       background: var(--white);
@@ -274,7 +294,7 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
+      gap: 6px;
       transition: all var(--transition);
     }
     .fin-btn:hover { border-color: var(--green-accent); background: var(--green-lightest); }
@@ -284,21 +304,32 @@
       box-shadow: 0 0 0 2px rgba(44, 62, 45, 0.15);
       font-weight: 600;
     }
-    .fin-btn svg { width: 18px; height: 18px; }
+    .fin-btn svg { width: 16px; height: 16px; }
 
-    .field-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
+    /* ── Back link ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      background: none;
+      border: none;
+      font-family: inherit;
+      margin-bottom: 16px;
+      transition: color var(--transition);
     }
+    .back-link:hover { color: var(--text-primary); }
+    .back-link svg { width: 16px; height: 16px; }
 
     /* ── Submit ── */
     .submit-btn {
       width: 100%;
-      padding: 17px 24px;
+      padding: 15px 24px;
       margin-top: 6px;
       font-family: inherit;
-      font-size: 16px;
+      font-size: 15px;
       font-weight: 600;
       color: var(--white);
       background: var(--green-dark);
@@ -314,10 +345,10 @@
     .submit-btn:hover { background: var(--green-mid); }
     .submit-btn:active { transform: scale(0.985); }
     .submit-btn:disabled { opacity: 0.6; cursor: not-allowed; }
-    .submit-btn svg { width: 20px; height: 20px; }
+    .submit-btn svg { width: 18px; height: 18px; }
 
     .btn-spinner {
-      width: 20px; height: 20px;
+      width: 18px; height: 18px;
       border: 2.5px solid rgba(255,255,255,0.3);
       border-top-color: #fff;
       border-radius: 50%;
@@ -328,223 +359,265 @@
 
     .disclaimer {
       text-align: center;
-      font-size: 12.5px;
+      font-size: 11.5px;
       color: var(--text-secondary);
-      margin-top: 18px;
-      line-height: 1.5;
+      margin-top: 14px;
+      line-height: 1.45;
     }
 
     /* ── Success ── */
-    .success-state { display: none; text-align: center; padding: 24px 0; }
+    .success-state { display: none; text-align: center; padding: 48px 36px; }
     .success-state.visible { display: block; }
     .success-icon-wrap {
-      width: 64px; height: 64px;
+      width: 56px; height: 56px;
       background: var(--green-light);
       border-radius: 50%;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
-    .success-icon-wrap svg { width: 32px; height: 32px; color: var(--success); }
-    .success-state h2 { font-family: 'Playfair Display', serif; font-size: 24px; margin-bottom: 10px; }
-    .success-state p { color: var(--text-secondary); font-size: 15px; line-height: 1.5; }
+    .success-icon-wrap svg { width: 28px; height: 28px; color: var(--success); }
+    .success-state h2 { font-family: 'Playfair Display', serif; font-size: 22px; margin-bottom: 8px; }
+    .success-state p { color: var(--text-secondary); font-size: 14px; line-height: 1.5; }
 
-    @media (max-width: 560px) {
-      .form-card { padding: 32px 20px 28px; }
-      .form-title { font-size: 24px; }
+    /* ── Responsive ── */
+    @media (max-width: 480px) {
+      .form-card { border-radius: 14px; }
+      .form-header { padding: 28px 24px 0; }
+      .slide { padding: 16px 24px 28px; }
+      .form-title { font-size: 22px; }
       .service-grid { grid-template-columns: repeat(2, 1fr); }
-      .inline-row, .field-row { grid-template-columns: 1fr; }
+      .detail-row, .field-row { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
-<div class="form-card">
-  <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+<div class="form-card" id="formCard">
+  <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+
+  <!-- Header (always visible) -->
+  <div class="form-header">
+    <h1 class="form-title">Request a Free Quote</h1>
+    <p class="form-subtitle" id="stepSubtitle">Select a service to get started</p>
+  </div>
+
+  <!-- Step dots -->
+  <div class="step-dots" id="stepDots">
+    <div class="dot active" data-dot="0"></div>
+    <div class="dot" data-dot="1"></div>
+    <div class="dot" data-dot="2"></div>
+  </div>
 
   <form id="quoteForm" novalidate>
-    <h1 class="form-title">Request a Free Quote</h1>
-    <p class="form-subtitle">Select a service to get started</p>
 
-    <!-- STEP 1: Services -->
-    <div class="step visible" data-step="0" id="stepService">
-      <div class="step-label"><span class="step-num">1</span> Select Your Service</div>
-      <div class="service-grid" id="serviceGrid">
+    <!-- Slider -->
+    <div class="slider-viewport">
+      <div class="slider-track" id="sliderTrack">
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Custom Deck Building">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="24" width="40" height="18" rx="2"/><line x1="4" y1="33" x2="44" y2="33"/><path d="M12 24V14l12-8 12 8v10"/><rect x="19" y="16" width="10" height="8"/></svg>
-          <span class="service-name">Custom Deck Building</span>
-        </label>
+        <!-- ═══ SLIDE 1: Services ═══ -->
+        <div class="slide" data-slide="0">
+          <div class="step-label"><span class="step-num">1</span> Select Your Service</div>
+          <div class="service-grid" id="serviceGrid">
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Hot Tub Decks">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 30h36v10a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V30z"/><path d="M10 30V18a8 8 0 0 1 8-8h12a8 8 0 0 1 8 8v12"/><path d="M15 10c0 2 1 4 2 6"/><path d="M22 8c0 2 1 5 2 7"/><path d="M29 10c0 2 1 4 2 6"/></svg>
-          <span class="service-name">Hot Tub Decks</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Custom Deck Building">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="24" width="40" height="18" rx="2"/><line x1="4" y1="33" x2="44" y2="33"/><path d="M12 24V14l12-8 12 8v10"/><rect x="19" y="16" width="10" height="8"/></svg>
+              <span class="service-name">Custom Deck</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Pool Decks">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 30c2 1.5 3 2.5 6 2.5s4-3 8-3 4 3 8 3 4-3 8-3c3 0 4 1 6 2.5"/><path d="M4 38c2 1.5 3 2.5 6 2.5s4-3 8-3 4 3 8 3 4-3 8-3c3 0 4 1 6 2.5"/><rect x="14" y="10" width="20" height="16" rx="2"/></svg>
-          <span class="service-name">Pool Decks</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Hot Tub Decks">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 30h36v10a4 4 0 0 1-4 4H10a4 4 0 0 1-4-4V30z"/><path d="M10 30V18a8 8 0 0 1 8-8h12a8 8 0 0 1 8 8v12"/><path d="M15 10c0 2 1 4 2 6"/><path d="M22 8c0 2 1 5 2 7"/><path d="M29 10c0 2 1 4 2 6"/></svg>
+              <span class="service-name">Hot Tub Decks</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Porch Decks">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 42h36"/><path d="M10 42V16l14-8 14 8v26"/><path d="M18 42v-12h12v12"/><path d="M6 22h36"/></svg>
-          <span class="service-name">Porch Decks</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Pool Decks">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M4 30c2 1.5 3 2.5 6 2.5s4-3 8-3 4 3 8 3 4-3 8-3c3 0 4 1 6 2.5"/><path d="M4 38c2 1.5 3 2.5 6 2.5s4-3 8-3 4 3 8 3 4-3 8-3c3 0 4 1 6 2.5"/><rect x="14" y="10" width="20" height="16" rx="2"/></svg>
+              <span class="service-name">Pool Decks</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Cedar Decks">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M24 44V16"/><path d="M10 24l14-14 14 14"/><path d="M6 34l18-14 18 14"/><path d="M2 44l22-14 22 14"/></svg>
-          <span class="service-name">Cedar Decks</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Porch Decks">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 42h36"/><path d="M10 42V16l14-8 14 8v26"/><path d="M18 42v-12h12v12"/><path d="M6 22h36"/></svg>
+              <span class="service-name">Porch Decks</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Composite Decks">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="20" width="36" height="22" rx="2"/><line x1="6" y1="30" x2="42" y2="30"/><line x1="6" y1="38" x2="42" y2="38"/><rect x="12" y="10" width="10" height="10"/><rect x="26" y="10" width="10" height="10"/></svg>
-          <span class="service-name">Composite Decks</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Cedar Decks">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M24 44V16"/><path d="M10 24l14-14 14 14"/><path d="M6 34l18-14 18 14"/><path d="M2 44l22-14 22 14"/></svg>
+              <span class="service-name">Cedar Decks</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Deck Repair & Restoration">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M28 12a2 2 0 0 0 0 3l5 5a2 2 0 0 0 3 0l7-7a12 12 0 0 1-16 16L13 43a4.24 4.24 0 0 1-6-6l14-14A12 12 0 0 1 37 7l-9 5z"/></svg>
-          <span class="service-name">Repair &amp; Restoration</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Composite Decks">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="20" width="36" height="22" rx="2"/><line x1="6" y1="30" x2="42" y2="30"/><line x1="6" y1="38" x2="42" y2="38"/><rect x="12" y="10" width="10" height="10"/><rect x="26" y="10" width="10" height="10"/></svg>
+              <span class="service-name">Composite Decks</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Pergolas & Structures">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="12" x2="40" y2="12"/><line x1="4" y1="20" x2="44" y2="20"/><line x1="12" y1="12" x2="12" y2="44"/><line x1="36" y1="12" x2="36" y2="44"/><line x1="4" y1="20" x2="8" y2="12"/><line x1="44" y1="20" x2="40" y2="12"/><line x1="20" y1="20" x2="20" y2="44"/><line x1="28" y1="20" x2="28" y2="44"/></svg>
-          <span class="service-name">Pergolas &amp; Structures</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Deck Repair & Restoration">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M28 12a2 2 0 0 0 0 3l5 5a2 2 0 0 0 3 0l7-7a12 12 0 0 1-16 16L13 43a4.24 4.24 0 0 1-6-6l14-14A12 12 0 0 1 37 7l-9 5z"/></svg>
+              <span class="service-name">Repair &amp; Restore</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Deck Stairs">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 42h8v-8h8v-8h8v-8h8V8"/></svg>
-          <span class="service-name">Deck Stairs</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Pergolas & Structures">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="8" y1="12" x2="40" y2="12"/><line x1="4" y1="20" x2="44" y2="20"/><line x1="12" y1="12" x2="12" y2="44"/><line x1="36" y1="12" x2="36" y2="44"/><line x1="4" y1="20" x2="8" y2="12"/><line x1="44" y1="20" x2="40" y2="12"/><line x1="20" y1="20" x2="20" y2="44"/><line x1="28" y1="20" x2="28" y2="44"/></svg>
+              <span class="service-name">Pergolas</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Deck Railings">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="18" x2="42" y2="18"/><line x1="6" y1="42" x2="42" y2="42"/><line x1="10" y1="18" x2="10" y2="42"/><line x1="18" y1="18" x2="18" y2="42"/><line x1="26" y1="18" x2="26" y2="42"/><line x1="34" y1="18" x2="34" y2="42"/><line x1="42" y1="18" x2="42" y2="42"/><circle cx="10" cy="12" r="3"/><circle cx="42" cy="12" r="3"/></svg>
-          <span class="service-name">Deck Railings</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Deck Stairs">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M8 42h8v-8h8v-8h8v-8h8V8"/></svg>
+              <span class="service-name">Deck Stairs</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Deck Lighting">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 36h12"/><path d="M20 42h8"/><line x1="24" y1="4" x2="24" y2="8"/><path d="M24 14a8 8 0 0 1 8 8c0 4-3 7-4 9s-2 3-4 3-3-1-4-3-4-5-4-9a8 8 0 0 1 8-8z"/><line x1="8" y1="8" x2="11" y2="11"/><line x1="40" y1="8" x2="37" y2="11"/><line x1="4" y1="24" x2="8" y2="24"/><line x1="44" y1="24" x2="40" y2="24"/></svg>
-          <span class="service-name">Deck Lighting</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Deck Railings">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="6" y1="18" x2="42" y2="18"/><line x1="6" y1="42" x2="42" y2="42"/><line x1="10" y1="18" x2="10" y2="42"/><line x1="18" y1="18" x2="18" y2="42"/><line x1="26" y1="18" x2="26" y2="42"/><line x1="34" y1="18" x2="34" y2="42"/><line x1="42" y1="18" x2="42" y2="42"/><circle cx="10" cy="12" r="3"/><circle cx="42" cy="12" r="3"/></svg>
+              <span class="service-name">Deck Railings</span>
+            </label>
 
-        <label class="service-card">
-          <input type="radio" name="service" value="Commercial Deck Building">
-          <div class="svc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
-          <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="14" width="40" height="30" rx="2"/><path d="M12 14V10a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v4"/><line x1="4" y1="26" x2="44" y2="26"/><rect x="18" y="22" width="12" height="8" rx="1"/></svg>
-          <span class="service-name">Commercial Deck</span>
-        </label>
+            <label class="service-card">
+              <input type="radio" name="service" value="Deck Lighting">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M18 36h12"/><path d="M20 42h8"/><line x1="24" y1="4" x2="24" y2="8"/><path d="M24 14a8 8 0 0 1 8 8c0 4-3 7-4 9s-2 3-4 3-3-1-4-3-4-5-4-9a8 8 0 0 1 8-8z"/><line x1="8" y1="8" x2="11" y2="11"/><line x1="40" y1="8" x2="37" y2="11"/><line x1="4" y1="24" x2="8" y2="24"/><line x1="44" y1="24" x2="40" y2="24"/></svg>
+              <span class="service-name">Deck Lighting</span>
+            </label>
 
-      </div>
-    </div>
+            <label class="service-card">
+              <input type="radio" name="service" value="Commercial Deck Building">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="14" width="40" height="30" rx="2"/><path d="M12 14V10a4 4 0 0 1 4-4h16a4 4 0 0 1 4 4v4"/><line x1="4" y1="26" x2="44" y2="26"/><rect x="18" y="22" width="12" height="8" rx="1"/></svg>
+              <span class="service-name">Commercial</span>
+            </label>
 
-    <!-- STEP 2: Zip + Financing -->
-    <div class="step hidden" data-step="1" id="stepDetails">
-      <hr class="step-divider">
-      <div class="step-label"><span class="step-num">2</span> Project Details</div>
-      <div class="inline-row">
-        <div>
-          <label for="zipCode">Zip Code <span class="req">*</span></label>
-          <div class="input-wrap">
-            <input type="text" id="zipCode" name="zipCode" placeholder="55369" required maxlength="5" inputmode="numeric" autocomplete="postal-code">
-            <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <label class="service-card">
+              <input type="radio" name="service" value="Deck Columns & Posts">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="6" width="12" height="36" rx="2"/><rect x="28" y="6" width="12" height="36" rx="2"/><line x1="4" y1="42" x2="44" y2="42"/><line x1="4" y1="6" x2="44" y2="6"/></svg>
+              <span class="service-name">Columns &amp; Posts</span>
+            </label>
+
+            <label class="service-card">
+              <input type="radio" name="service" value="Other">
+              <div class="svc-check"><svg width="8" height="8" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg></div>
+              <svg class="svc-icon" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="24" cy="24" r="20"/><line x1="24" y1="16" x2="24" y2="32"/><line x1="16" y1="24" x2="32" y2="24"/></svg>
+              <span class="service-name">Other</span>
+            </label>
+
           </div>
-          <div class="field-error" id="zipCodeError">Enter a valid zip code</div>
         </div>
-        <div>
-          <label>Need Financing?</label>
-          <div class="financing-options">
-            <button type="button" class="fin-btn" data-value="yes" id="finYes">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
-              Yes
-            </button>
-            <button type="button" class="fin-btn" data-value="no" id="finNo">
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
-              No
-            </button>
-          </div>
-          <input type="hidden" id="financing" name="financing" value="">
-        </div>
-      </div>
-    </div>
 
-    <!-- STEP 3: Contact -->
-    <div class="step hidden" data-step="2" id="stepContact">
-      <hr class="step-divider">
-      <div class="step-label"><span class="step-num">3</span> Contact Information</div>
+        <!-- ═══ SLIDE 2: Zip + Financing ═══ -->
+        <div class="slide" data-slide="1">
+          <button type="button" class="back-link" id="backTo0">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+          </button>
+          <div class="step-label"><span class="step-num">2</span> Project Details</div>
 
-      <div class="field-group">
-        <label for="fullName">Full Name <span class="req">*</span></label>
-        <div class="input-wrap">
-          <input type="text" id="fullName" name="fullName" placeholder="Your name" required autocomplete="name">
-          <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-        </div>
-        <div class="field-error" id="fullNameError">Please enter your name</div>
-      </div>
-
-      <div class="field-group">
-        <div class="field-row">
-          <div>
-            <label for="email">Email Address <span class="req">*</span></label>
-            <div class="input-wrap">
-              <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <div class="detail-row">
+            <div>
+              <label class="field-label" for="zipCode">Zip Code <span class="req">*</span></label>
+              <div class="input-wrap">
+                <input type="text" id="zipCode" name="zipCode" placeholder="55369" required maxlength="5" inputmode="numeric" autocomplete="postal-code">
+                <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div class="field-error" id="zipCodeError">Enter a valid zip code</div>
             </div>
-            <div class="field-error" id="emailError">Please enter a valid email</div>
-          </div>
-          <div>
-            <label for="phone">Phone Number</label>
-            <div class="input-wrap">
-              <input type="tel" id="phone" name="phone" placeholder="(612) 555-0123" autocomplete="tel">
-              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <div>
+              <label class="field-label">Need Financing?</label>
+              <div class="financing-options">
+                <button type="button" class="fin-btn" id="finYes">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                  Yes
+                </button>
+                <button type="button" class="fin-btn" id="finNo">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg>
+                  No
+                </button>
+              </div>
+              <input type="hidden" id="financing" name="financing" value="">
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="field-group">
-        <label for="message">Your Message <span class="req">*</span></label>
-        <div class="input-wrap">
-          <textarea id="message" name="message" placeholder="Tell us about your deck project..." required></textarea>
-          <svg class="input-icon" style="top:16px;align-self:flex-start;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        <!-- ═══ SLIDE 3: Contact ═══ -->
+        <div class="slide" data-slide="2">
+          <button type="button" class="back-link" id="backTo1">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Back
+          </button>
+          <div class="step-label"><span class="step-num">3</span> Contact Information</div>
+
+          <div class="field-group">
+            <label class="field-label" for="fullName">Full Name <span class="req">*</span></label>
+            <div class="input-wrap">
+              <input type="text" id="fullName" name="fullName" placeholder="Your name" required autocomplete="name">
+              <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            </div>
+            <div class="field-error" id="fullNameError">Please enter your name</div>
+          </div>
+
+          <div class="field-group">
+            <div class="field-row">
+              <div>
+                <label class="field-label" for="email">Email <span class="req">*</span></label>
+                <div class="input-wrap">
+                  <input type="email" id="email" name="email" placeholder="you@example.com" required autocomplete="email">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+                </div>
+                <div class="field-error" id="emailError">Enter a valid email</div>
+              </div>
+              <div>
+                <label class="field-label" for="phone">Phone</label>
+                <div class="input-wrap">
+                  <input type="tel" id="phone" name="phone" placeholder="(612) 555-0123" autocomplete="tel">
+                  <svg class="input-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="field-group">
+            <label class="field-label" for="message">Your Message <span class="req">*</span></label>
+            <div class="input-wrap">
+              <textarea id="message" name="message" placeholder="Tell us about your deck project..." required></textarea>
+              <svg class="input-icon" style="top:14px;align-self:flex-start;" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+            </div>
+            <div class="field-error" id="messageError">Please describe your project</div>
+          </div>
+
+          <button type="submit" class="submit-btn" id="submitBtn">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+            <span id="btnText">Request Free Quote</span>
+            <div class="btn-spinner" id="btnSpinner"></div>
+          </button>
+
+          <p class="disclaimer">
+            By submitting this form, you agree to be contacted regarding your deck project. Your information is kept confidential.
+          </p>
         </div>
-        <div class="field-error" id="messageError">Please describe your project</div>
+
       </div>
-
-      <button type="submit" class="submit-btn" id="submitBtn">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-        <span id="btnText">Request Free Quote</span>
-        <div class="btn-spinner" id="btnSpinner"></div>
-      </button>
-
-      <p class="disclaimer">
-        By submitting this form, you agree to be contacted regarding your deck project.<br>
-        Your information is kept confidential.
-      </p>
     </div>
   </form>
 
+  <!-- Success -->
   <div class="success-state" id="successState">
     <div class="success-icon-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
@@ -558,73 +631,81 @@
 (function () {
   "use strict";
 
-  const form = document.getElementById("quoteForm");
-  const progressBar = document.getElementById("progressBar");
-  const successState = document.getElementById("successState");
-  const submitBtn = document.getElementById("submitBtn");
-  const btnText = document.getElementById("btnText");
-  const btnSpinner = document.getElementById("btnSpinner");
+  var form = document.getElementById("quoteForm");
+  var sliderTrack = document.getElementById("sliderTrack");
+  var progressFill = document.getElementById("progressFill");
+  var stepSubtitle = document.getElementById("stepSubtitle");
+  var submitBtn = document.getElementById("submitBtn");
+  var btnText = document.getElementById("btnText");
+  var btnSpinner = document.getElementById("btnSpinner");
+  var successState = document.getElementById("successState");
+  var dots = document.querySelectorAll(".dot");
 
-  const steps = [
-    document.getElementById("stepService"),
-    document.getElementById("stepDetails"),
-    document.getElementById("stepContact"),
+  var totalSteps = 3;
+  var currentStep = 0;
+  var financingSelected = false;
+  var subtitles = [
+    "Select a service to get started",
+    "Tell us where you are",
+    "Almost done — how can we reach you?"
   ];
-  const totalSteps = steps.length;
-  let currentStep = 0;
-  let financingSelected = false;
 
-  function showStep(index) {
-    if (index <= currentStep) return;
+  // ── Navigate slides ──
+  function goToStep(index) {
+    if (index < 0 || index >= totalSteps) return;
     currentStep = index;
-    steps.forEach(function (step, i) {
-      step.classList.remove("hidden", "visible");
-      step.classList.add(i <= currentStep ? "visible" : "hidden");
+
+    // Slide
+    sliderTrack.style.transform = "translateX(-" + (currentStep * 100) + "%)";
+
+    // Progress
+    progressFill.style.width = ((currentStep + 1) / totalSteps * 100) + "%";
+
+    // Subtitle
+    stepSubtitle.textContent = subtitles[currentStep];
+
+    // Dots
+    dots.forEach(function (dot, i) {
+      dot.classList.remove("active", "done");
+      if (i === currentStep) dot.classList.add("active");
+      else if (i < currentStep) dot.classList.add("done");
     });
-    progressBar.style.width = ((currentStep + 1) / totalSteps * 100) + "%";
-    setTimeout(function () {
-      steps[currentStep].scrollIntoView({ behavior: "smooth", block: "center" });
-    }, 150);
+
+    // Focus first input on new slide
+    var slide = document.querySelector('[data-slide="' + currentStep + '"]');
+    var input = slide.querySelector("input:not([type=hidden]):not([type=radio]), textarea");
+    if (input) setTimeout(function () { input.focus(); }, 500);
   }
 
-  function focusFirst(stepEl) {
-    var input = stepEl.querySelector("input:not([type=hidden]):not([type=radio]), textarea");
-    if (input) setTimeout(function () { input.focus(); }, 250);
-  }
-
-  // STEP 1: Service click -> auto-advance
+  // ── STEP 1: Service cards ──
   var cards = document.querySelectorAll(".service-card");
   cards.forEach(function (card) {
     card.addEventListener("click", function () {
       cards.forEach(function (c) { c.classList.remove("selected"); });
       this.classList.add("selected");
       this.querySelector("input").checked = true;
-      setTimeout(function () {
-        showStep(1);
-        focusFirst(steps[1]);
-      }, 350);
+      setTimeout(function () { goToStep(1); }, 350);
     });
   });
 
-  // STEP 2: Zip code
+  // ── STEP 2: Zip code + Financing ──
   var zipInput = document.getElementById("zipCode");
+  var finYes = document.getElementById("finYes");
+  var finNo = document.getElementById("finNo");
+  var finHidden = document.getElementById("financing");
+
   zipInput.addEventListener("input", function () {
     this.value = this.value.replace(/\D/g, "").slice(0, 5);
     if (this.value.length === 5 && financingSelected) {
-      setTimeout(function () { advanceToContact(); }, 300);
+      setTimeout(function () { goToStep(2); }, 300);
     }
   });
   zipInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       e.preventDefault();
-      if (this.value.length >= 5 && financingSelected) advanceToContact();
+      if (this.value.length >= 5 && financingSelected) goToStep(2);
     }
   });
-
-  // Financing buttons
-  var finYes = document.getElementById("finYes");
-  var finNo = document.getElementById("finNo");
-  var finHidden = document.getElementById("financing");
 
   function selectFinancing(value) {
     financingSelected = true;
@@ -632,18 +713,17 @@
     finYes.classList.toggle("selected", value === "yes");
     finNo.classList.toggle("selected", value === "no");
     if (zipInput.value.length >= 5) {
-      setTimeout(function () { advanceToContact(); }, 300);
+      setTimeout(function () { goToStep(2); }, 300);
     }
   }
   finYes.addEventListener("click", function () { selectFinancing("yes"); });
   finNo.addEventListener("click", function () { selectFinancing("no"); });
 
-  function advanceToContact() {
-    showStep(2);
-    focusFirst(steps[2]);
-  }
+  // ── Back buttons ──
+  document.getElementById("backTo0").addEventListener("click", function () { goToStep(0); });
+  document.getElementById("backTo1").addEventListener("click", function () { goToStep(1); });
 
-  // Phone format
+  // ── Phone format ──
   var phoneInput = document.getElementById("phone");
   phoneInput.addEventListener("input", function () {
     var d = this.value.replace(/\D/g, "").slice(0, 10);
@@ -652,7 +732,7 @@
     else if (d.length > 0) this.value = "(" + d;
   });
 
-  // Validation
+  // ── Validation ──
   function validateField(id) {
     var field = document.getElementById(id);
     var errorEl = document.getElementById(id + "Error");
@@ -676,15 +756,16 @@
     });
   });
 
-  // Submit
+  // ── Submit ──
   form.addEventListener("submit", async function (e) {
     e.preventDefault();
     var v1 = validateField("zipCode");
     var v2 = validateField("fullName");
     var v3 = validateField("email");
     var v4 = validateField("message");
-    if (!v1 || !v2 || !v3 || !v4) {
-      var first = !v1 ? "zipCode" : !v2 ? "fullName" : !v3 ? "email" : "message";
+    if (!v1) { goToStep(1); return; }
+    if (!v2 || !v3 || !v4) {
+      var first = !v2 ? "fullName" : !v3 ? "email" : "message";
       document.getElementById(first).focus();
       return;
     }
@@ -712,7 +793,9 @@
       var data = await res.json();
       if (data.success) {
         form.style.display = "none";
-        progressBar.style.width = "100%";
+        document.querySelector(".form-header").style.display = "none";
+        document.getElementById("stepDots").style.display = "none";
+        progressFill.style.width = "100%";
         successState.classList.add("visible");
       } else {
         throw new Error(data.error || "Submission failed");
@@ -724,8 +807,6 @@
       btnSpinner.style.display = "none";
     }
   });
-
-  progressBar.style.width = (1 / totalSteps * 100) + "%";
 })();
 </script>
 
